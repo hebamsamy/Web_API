@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Product</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery-1.11.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+<body style="padding-top:20px">
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#my-navbar">
+					<span class="glyphicon glyphicon-align-justify"></span>
+				</button>
+				<div class="navbar-brand">
+					<a href="index.html">Back To Home</a>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="my-navbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a id="userName" class="text-muted" href="#"></a></li>
+					<li><a id="Logout" >Logout</a></li>
+				</ul>	
+			</div>
+		</div>	
+	</nav>
+<div class="container">
+    <ul class="nav nav-tabs" id="productselected" >
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#ShowProducts" id="loadProducts">Show Products</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#ShowProduct" id="loadProduct">Show Product</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#CreateProduct" id="insertProduct">Insert Product</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#UpdateProduct" id="updateProduct">Update Product</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#DeleteProduct" id="deleteProduct">Delete Product</a>
+        </li>
+    </ul>
+    <div class="tab-content" >
+        <div id="ShowProducts" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>All Products</h2>
+                    <table class="table table-bordered" id="tblProducts">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th colspan="2">Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>category</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblProductsBody">								
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="ShowProduct" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>find Product</h2>
+                    <br/>
+                    <label class="control-label col-sm-2" for="txtProductId"> Product Neme</label>
+                    <input class="form-control col-sm-4" type="text" id="txtProductId" placeholder="Product ID"/>
+                    <input type="button" class="btn btn-success" id="btnSearch" value="Search">
+                    <table class="table table-bordered" id="tblProduct">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th colspan="2">Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>category</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblProductBody">								
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="CreateProduct" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <br/>
+                    <table>
+                        <thead><h2>Create Product</h2></thead>
+                        <tbody>	
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtNewName"> Name</label></td>
+                                <td><input class="form-control" type="text" id="txtNewName" placeholder="Name"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtNewPrice"> Price</label></td>
+                                <td><input class="form-control" type="text" id="txtNewPrice" placeholder="Price"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtNewQuantity">Quantity</label></td>
+                                <td><input class="form-control" type="text" id="txtNewQuantity" placeholder="Quantity"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtNewCategoryID">Category ID</label></td>
+                                <td><input class="form-control" type="text" id="txtNewCategoryID" placeholder="Category ID"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtNewDescription">Description</label></td>
+                                <td><input class="form-control" type="text" id="txtNewDescription" placeholder="Description"/></td>
+                            </tr>
+                            <tr class="success">
+                                <td colspan="2"><input type="button" id="btnCreate" value="Create" class="btn btn-success form-control"/></td>
+                            </tr>					
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="UpdateProduct" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>Update Product</h2>
+                    <br/>
+                    <label class="control-label col-sm-2" for="txtProductId"> Product ID</label>
+                    <input class="form-control" width="150px" type="text" id="txtPutProduct" placeholder="Product ID"/>
+                    <input type="button" class="btn btn-success" id="btnPutProduct" value="Search">
+                    <table class="table table-bordered" id="tblUpdateProduct">
+                        <tbody>	
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtName"> Name</label></td>
+                                <td><input class="form-control" type="text" id="txtName" placeholder="Name"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtPrice"> Price</label></td>
+                                <td><input class="form-control" type="text" id="txtPrice" placeholder="Price"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtQuantity">Quantity</label></td>
+                                <td><input class="form-control" type="text" id="txtQuantity" placeholder="Quantity"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtCategoryID">Category ID</label></td>
+                                <td><input class="form-control" type="text" id="txtCategoryID" placeholder="Category ID"/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtDescription">Description</label></td>
+                                <td><input class="form-control" type="text" id="txtDescription" placeholder="Description"/></td>
+                            </tr>
+                            <tr class="success">
+                                <td colspan="2"><input type="button" id="btnUpdate" value="Update" class="btn btn-success form-control"/></td>
+                            </tr>					
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="DeleteProduct" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>Delete Product</h2>
+                    <br/>
+                    <label class="control-label col-sm-2" for="txtDelProduct"> Product ID</label>
+                    <input class="form-control" width="150px" type="text" id="txtDelProduct" placeholder="Product ID"/>
+                    <input type="button" class="btn btn-danger" id="btnDelProduct" value="Delete"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ErrorModal" class="modal fade" style="display: none;" tabindex="-1">
+    <div class="modal-dialog model-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Session Expired</h4>
+            </div>
+            <div class="modal-body">
+                <h2 class="model-title">Please close this massage to Login again</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div> 
+</div>
+<script>
+    $(document).ready(function()
+    { 
+        if(localStorage.getItem('accessToken')==null)
+        {
+            window.location.href ='Login.html';
+        }
+        $("#userName").text("hello "+localStorage.getItem("userName"));
+        $("#Logout").click(function()
+        {
+            localStorage.removeItem("accessToken");
+            window.location.href ='Login.html';
+        });
+        $('#ErrorModal').on("hidden.bs.model",function()
+        {
+            window.location.href ='Login.html';
+        });
+        $('#loadProducts').click(function()
+        {
+            $('#ShowProduct').addClass('hidden');
+            $('#DeleteProduct').addClass('hidden');
+            $('#UpdateProduct').addClass('hidden');
+            $('#CreateProduct').addClass('hidden');
+            $('#ShowProduct').hide('fade');
+            $('#DeleteProduct').hide('fade');
+            $('#UpdateProduct').hide('fade');
+            $('#CreateProduct').hide('fade');
+            $('#ShowProducts').removeClass('hidden');
+            $("#tblProductsBody").empty();
+            
+            $.ajax({
+                method:'GET',
+                url:'http://localhost:54144/api/product' ,
+                contentType:'application/json',
+                headers:{
+                    'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                },
+                success:function(data)
+                {
+                    $('#ShowProducts').removeClass('hidden');
+                    $("#tblProductsBody").empty();
+                    $.each(data , function(index , val)
+                    {
+                        var row=
+                            "<td>" + val.Name +"</td>"
+                            +"<td colspan='2'><img src='img/"+ val.Image +"' width='100px' height='100px' alt='"+ val.Name +"' /> </td>"
+                            +"<td>" + val.Price+"</td>"
+                            +"<td>" + val.Quantity+"</td>"
+                            +"<td> " + val.CategoryID+"</td>"
+                            +"<td>" + val.Description+"</td>";
+                        $("#tblProducts").append("<tr>"+row+"</tr>");
+                    })	
+                },
+                error:function(jqXHR)
+                { 
+                    if(jqXHR.state=="401")
+                    {
+                        $("#ErrorModal").model({backdrop: 'static'});
+                    }
+                    else
+                    {
+                        console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                    }
+                }  
+            });
+        });
+        $('#btnSearch').click(function()
+        {
+            if($("#txtProductId").val()=="")
+            {
+                console.log("Warning!!!! You should enter Product N.");
+            }
+            else
+            {
+                $("#tblProductBody").empty();
+                $.ajax({
+                    method:'GET',
+                    url:'http://localhost:54144/api/product?name = '+$("#txtProductId").val() ,
+                    contentType:'application/json',
+                    headers:{
+                        'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                    },
+                    success:function(data)
+                    {
+                        $.each(data , function(index , val)
+                        {
+                            var data=
+                                "<td>" + val.Name +"</td>"
+                                +"<td colspan='2'><img src='img/"+ val.Image +"' width='100px' height='100px' alt='"+ val.Name +"' /> </td>"
+                                +"<td>" + val.Price+"</td>"
+                                +"<td>" + val.Quantity+"</td>"
+                                +"<td> " + val.CategoryID+"</td>"
+                                +"<td>" + val.Description+"</td>";
+                            $("#tblProduct").append("<tr>"+data+"</tr>");
+                        })
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+            }
+        });
+        $('#loadProduct').click(function()
+        {
+            $('#ShowProducts').addClass('hidden');
+            $('#DeleteProduct').addClass('hidden');
+            $('#UpdateProduct').addClass('hidden');
+            $('#CreateProduct').addClass('hidden');
+            $('#ShowProducts').hide('fade');
+            $('#DeleteProduct').hide('fade');
+            $('#UpdateProduct').hide('fade');
+            $('#CreateProduct').hide('fade');
+            $('#ShowProduct').removeClass('hidden');
+            $("#tblProductBody").empty();
+            $("#btnSearch").empty();
+        });
+        $('#insertProduct').click(function()
+        {
+            $('#ShowProducts').addClass('hidden');
+            $('#DeleteProduct').addClass('hidden');
+            $('#UpdateProduct').addClass('hidden');
+            $('#ShowProduct').addClass('hidden');
+            $('#ShowProducts').hide('fade');
+            $('#DeleteProduct').hide('fade');
+            $('#ShowProduct').hide('fade');
+            $('#UpdateProduct').hide('fade');
+            $('#CreateProduct').removeClass('hidden');
+            $("#txtNewName").empty();
+            $("#txtNewPrice").empty();	
+            $("#txtNewQuantity").empty();	
+            $("#txtNewCategoryID").empty();
+            $("#txtNewDescription").empty();
+        });
+        $('#btnCreate').click(function()
+        {
+            if($('#txtNewName').val()==""||$("#txtNewPrice").val()==""||$("#txtNewQuantity").val()==""
+            ||$("#txtNewCategoryID").val()==""||$("#txtNewDescription").val()=="")
+            {
+                console.log("Warning!!!! You should enter Details.");
+            }
+            else
+            {
+                var dt = new Date();
+                var CMD =dt.getDate()+"-"+(dt.getMonth()+1)+"-"+dt.getFullYear();
+                $.ajax({
+                    method:'POST',
+                    url:'http://localhost:54144/api/product',
+                    datatype:'json',
+                    headers:
+                    {
+                        'Authorization':"Bearer "+localStorage.getItem("accessToken"),
+                    },
+                    data:{
+                        Name : $('#txtNewName').val(),
+                        Price : $("#txtNewPrice").val(),	
+                        Quantity : $("#txtNewQuantity").val(),
+                        CategoryID : $("#txtNewCategoryID").val(),
+                        Description : $("#txtNewDescription").val(),
+                        IsActive : true,
+                        IsDeleted : false,
+                        IsFeatured : true,
+                        ModifiedDate : CMD,
+                        CreateDate : CMD,
+                        Image:"5.jpg",
+                    },
+                    success:function(val)
+                    {
+                        $("#txtNewName").empty();
+                        $("#txtNewPrice").empty();	
+                        $("#txtNewQuantity").empty();	
+                        $("#txtNewCategoryID").empty();
+                        $("#txtNewDescription").empty();
+                        alert("New Product Inserted  go to Show All");
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+            }
+        });
+        $('#btnPutProduct').click(function()
+        {
+            if($("#txtPutProduct").val()=="")
+            {
+                console.log("Warning!!!! You should enter Product ID.");;
+            }
+            else if(isNaN($("#txtPutProduct").val()))
+            {
+                console.log("Warning!!!! You should enter NUMBER.");
+            }
+            else
+            {
+                $.ajax({
+                    method:'GET',
+                    url:'http://localhost:54144/api/product/'+$("#txtPutProduct").val() ,
+                    contentType:'application/json',
+                    headers:{
+                        'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                    },
+                    success:function(val)
+                    {		
+                        $("#txtName").val(val.Name) ;	
+                        $("#txtPrice").val(val.Price);	
+                        $("#txtQuantity").val(val.Quantity) ;	
+                        $("#txtCategoryID").val(val.CategoryID) ;
+                        $("#txtDescription").val(val.Description) ;	
+                        $("#txtPrice").val(val.Price) ;
+                        //val.Image					
+                        
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+            }
+        });
+        $('#updateProduct').click(function()
+        {
+            $('#ShowProducts').addClass('hidden');
+            $('#DeleteProduct').addClass('hidden');
+            $('#ShowProduct').addClass('hidden');
+            $('#CreateProduct').addClass('hidden');
+            $('#ShowProducts').hide('fade');
+            $('#DeleteProduct').hide('fade');
+            $('#ShowProduct').hide('fade');
+            $('#CreateProduct').hide('fade');
+            $('#UpdateProduct').removeClass('hidden');
+            $("#tblProductBody").empty();
+            $("#txtPutProduct").empty();
+            $("#txtName").empty();
+            $("#txtPrice").empty();	
+            $("#txtQuantity").empty();	
+            $("#txtCategoryID").empty();
+            $("#txtDescription").empty();
+        });
+        $("#btnUpdate").click(function()
+        {
+            var dt = new Date();
+            var CMDu =dt.getDate()+"-"+(dt.getMonth()+1)+"-"+dt.getFullYear();
+            $.ajax(
+            {
+                type:'PUT',
+                url:'http://localhost:54144/api/product/'+$("#txtPutProduct").val(),
+                datatype:'json',
+                headers:{
+                    'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                },
+                data:
+                {
+                    ID :$("#txtPutProduct").val(),
+                    Name : $('#txtName').val(),
+                    Price : $("#txtPrice").val(),	
+                    Quantity : $("#txtQuantity").val()	,
+                    CategoryID : $("#txtCategoryID").val(),
+                    Description : $("#txtDescription").val(),
+                    IsActive : true,
+                    IsDeleted : false,
+                    IsFeatured: true,
+                    ModifiedDate: CMDu,
+                    CreateDate: CMDu,
+                    Image:"6.jpg"
+                },
+                success:function(val)
+                {
+                    alert("New Product Inserted  go to Show All");
+                    $("#txtName").empty();
+                    $("#txtPrice").empty();	
+                    $("#txtQuantity").empty();	
+                    $("#txtCategoryID").empty();
+                    $("#txtDescription").empty();
+                    
+                    window.location.href ='#ShowProducts';				
+                },
+                error:function(jqXHR)
+                { 
+                    if(jqXHR.state=="401")
+                    {
+                        $("#ErrorModal").model({backdrop: 'static'});
+                    }
+                    else
+                    {
+                        console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                    }
+                }  
+            });
+        });
+        $('#btnDelProduct').click(function()
+        {
+            if($("#txtDelProduct").val()=="")
+            {
+                console.log("Warning!!!! You should enter Product ID.");
+            }
+            else if(isNaN($("#txtDelProduct").val()))
+            {
+                console.log("Warning!!!! You should enter NUMBER.");
+            }
+            else
+            {
+                if(confirm('Are You going to DELETE this Product ?'))
+                {
+                //$("#tblProductBody").empty();
+                $.ajax({
+                    method:'DELETE',
+                    url:'http://localhost:54144/api/product/'+$("#txtDelProduct").val() ,
+                    contentType:'application/json',
+                    headers:{
+                        'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                    },
+                    success:function(val)
+                    {		
+                        console.log("Deleted");
+                        window.location.href ='#ShowProducts';				
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+                }
+            }
+        });
+        $('#deleteProduct').click(function()
+        {
+            $('#ShowProducts').addClass('hidden');
+            $('#UpdateProduct').addClass('hidden');
+            $('#ShowProduct').addClass('hidden');
+            $('#CreateProduct').addClass('hidden');
+            $('#ShowProducts').hide('fade');
+            $('#UpdateProduct').hide('fade');
+            $('#ShowProduct').hide('fade');
+            $('#CreateProduct').hide('fade');
+            $('#DeleteProduct').removeClass('hidden');
+            $("#txtDelProduct").empty();
+        });
+    });
+</script>
+</body>
+</html>

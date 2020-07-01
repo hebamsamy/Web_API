@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Consumer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery-1.11.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+<body style="padding-top:20px">
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#my-navbar">
+					<span class="glyphicon glyphicon-align-justify"></span>
+				</button>
+				<div class="navbar-brand">
+					<a href="#">My Consumer</a>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="my-navbar">
+				<ul class="nav navbar-nav">
+					<li >
+						<a id="Products" href="Product.html">Our Products</a>
+					</li>
+					<li >
+						<a id="Categories" href="Category.html">Our Categories</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a id="userName" class="text-muted" href="#"></a></li>
+					<li><a id="Logout" >Logout</a></li>
+				</ul>	
+			</div>
+		</div>	
+	</nav>
+	<script>
+			$(document).ready(function()
+			{ 
+				if(localStorage.getItem('accessToken')==null)
+				{
+					window.location.href ='Login.html';
+				}
+				$("#userName").text("hello "+localStorage.getItem("userName"));
+				$("#Logout").click(function()
+				{
+					localStorage.removeItem("accessToken");
+					window.location.href ='Login.html';
+				});
+
+			});
+	</script>
+</body>
+	

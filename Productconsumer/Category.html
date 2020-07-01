@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Caregory</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery-1.11.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+<body style="padding-top:20px">
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#my-navbar">
+					<span class="glyphicon glyphicon-align-justify"></span>
+				</button>
+				<div class="navbar-brand">
+					<a href="index.html">Back To Home</a>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="my-navbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a id="userName" class="text-muted" href="#"></a></li>
+					<li><a id="Logout" >Logout</a></li>
+				</ul>	
+			</div>
+		</div>	
+	</nav>
+<div class="container">
+    <ul class="nav nav-tabs" id="Categoryselected" >
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#ShowCategories" id="loadCategories">Show Categories</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#ShowCategory" id="loadCategory">Show Category</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#CreateCategory" id="insertCategory">Insert Category</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#UpdateCategory" id="updateCategory">Update Category</a>
+        </li>
+        <li class="tab-list">
+            <a data-toggle="collapse" href="#DeleteCategory" id="deleteCategory">Delete Category</a>
+        </li>
+    </ul>
+    <div class="tab-content" >
+        <div id="ShowCategories" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>All Categories</h2>
+                    <table class="table table-bordered" id="tblCategories">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblCategoriesBody">								
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="ShowCategory" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>find Category</h2>
+                    <br/>
+                    <label class="control-label col-sm-2" for="txtCategoryId"> Category ID</label>
+                    <input class="form-control col-sm-4" type="text" id="txtCategoryId" placeholder="Category ID"/>
+                    <input type="button" class="btn btn-success" id="btnSearch" value="Search">
+                    <table class="table table-bordered" id="tblCategory">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblCategoryBody">								
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="CreateCategory" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <br/>
+                    <table>
+                        <thead><h2>Create Category</h2></thead>
+                        <tbody>	
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtNewName"> Name</label></td>
+                                <td><input class="form-control" type="text" id="txtNewName" placeholder="Name"/></td>
+                            </tr>
+                            <tr class="success">
+                                <td colspan="2"><input type="button" id="btnCreate" value="Create" class="btn btn-success form-control"/></td>
+                            </tr>					
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="UpdateCategory" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>Update Category</h2>
+                    <br/>
+                    <label class="control-label col-sm-2" for="txtCategoryId"> Category Code</label>
+                    <input class="form-control" width="150px" type="text" id="txtPutCategory" placeholder="Category ID"/>
+                    <input type="button" class="btn btn-success" id="btnPutCategory" value="Search">
+                    <table class="table table-bordered" id="tblUpdateCategory">
+                        <tbody>	
+                            <tr>
+                                <td><label class="control-label col-sm-2" for="txtName"> Name</label></td>
+                                <td><input class="form-control" type="text" id="txtName" placeholder="Name"/></td>
+                            </tr>
+                            <tr class="success">
+                                <td colspan="2"><input type="button" id="btnUpdate" value="Update" class="btn btn-success form-control"/></td>
+                            </tr>					
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="DeleteCategory" class="collapse hidden">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well">
+                    <h2>Delete Category</h2>
+                    <br/>
+                    <label class="control-label col-sm-2" for="txtDelCategory"> Category Code</label>
+                    <input class="form-control" width="150px" type="text" id="txtDelCategory" placeholder="Category ID"/>
+                    <input type="button" class="btn btn-danger" id="btnDelCategory" value="Delete"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ErrorModal" class="modal fade" style="display: none;" tabindex="-1">
+    <div class="modal-dialog model-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Session Expired</h4>
+            </div>
+            <div class="modal-body">
+                <h2 class="model-title">Please close this massage to Login again</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div> 
+</div>
+<script>
+    $(document).ready(function()
+    { 
+        if(localStorage.getItem('accessToken')==null)
+        {
+            window.location.href ='Login.html';
+        }
+        $("#userName").text("hello "+localStorage.getItem("userName"));
+        $("#Logout").click(function()
+        {
+            localStorage.removeItem("accessToken");
+            window.location.href ='Login.html';
+        });
+        $('#ErrorModal').on("hidden.bs.model",function()
+        {
+            window.location.href ='Login.html';
+        });
+        $('#loadCategories').click(function()
+        {
+            $('#ShowCategory').addClass('hidden');
+            $('#DeleteCategory').addClass('hidden');
+            $('#UpdateCategory').addClass('hidden');
+            $('#CreateCategory').addClass('hidden');
+            $('#ShowCategory').hide('fade');
+            $('#DeleteCategory').hide('fade');
+            $('#UpdateCategory').hide('fade');
+            $('#CreateCategory').hide('fade');
+            $('#ShowCategories').removeClass('hidden');
+            $("#tblCategoriesBody").empty();
+            
+            $.ajax({
+                method:'GET',
+                url:'http://localhost:54144/api/Category' ,
+                contentType:'application/json',
+                headers:{
+                    'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                },
+                success:function(data)
+                {
+                    $('#ShowCategorys').removeClass('hidden');
+                    $("#tblCategoriesBody").empty();
+                    $.each(data , function(index , val)
+                    {
+                        var row="<td>" + val.ID +"</td>"+
+                                "<td>" + val.Name +"</td>";
+                        $("#tblCategories").append("<tr>"+row+"</tr>");
+                    })	
+                },
+                error:function(jqXHR)
+                { 
+                    if(jqXHR.state=="401")
+                    {
+                        $("#ErrorModal").model({backdrop: 'static'});
+                    }
+                    else
+                    {
+                        console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                    }
+                }  
+            });
+        });
+        $('#btnSearch').click(function()
+        {
+            if($("#txtCategoryId").val()=="")
+            {
+                console.log("Warning!!!! You should enter Category ID.");
+            }
+            else if(isNaN($("#txtCategoryId").val()))
+            {
+                console.log("Warning!!!! You should enter NUMBER.");
+            }
+            else
+            {
+                $("#tblCategoryBody").empty();
+                $.ajax({
+                    method:'GET',
+                    url:'http://localhost:54144/api/Category/'+$("#txtCategoryId").val() ,
+                    contentType:'application/json',
+                    headers:{
+                        'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                    },
+                    success:function(val)
+                    {
+                        var data="<td>" + val.ID +"</td>"+
+                                 "<td>" + val.Name +"</td>";
+                        $("#tblCategory").append("<tr>"+data+"</tr>");	
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+            }
+        });
+        $('#loadCategory').click(function()
+        {
+            $('#ShowCategories').addClass('hidden');
+            $('#DeleteCategory').addClass('hidden');
+            $('#UpdateCategory').addClass('hidden');
+            $('#CreateCategory').addClass('hidden');
+            $('#ShowCategories').hide('fade');
+            $('#DeleteCategory').hide('fade');
+            $('#UpdateCategory').hide('fade');
+            $('#CreateCategory').hide('fade');
+            $('#ShowCategory').removeClass('hidden');
+            $("#tblCategoryBody").empty();
+            $("#btnSearch").empty();
+        });
+        $('#insertCategory').click(function()
+        {
+            $('#ShowCategories').addClass('hidden');
+            $('#DeleteCategory').addClass('hidden');
+            $('#UpdateCategory').addClass('hidden');
+            $('#ShowCategory').addClass('hidden');
+            $('#ShowCategories').hide('fade');
+            $('#DeleteCategory').hide('fade');
+            $('#ShowCategory').hide('fade');
+            $('#UpdateCategory').hide('fade');
+            $('#CreateCategory').removeClass('hidden');
+            $("#txtNewName").empty();
+        });
+        $('#btnCreate').click(function()
+        {
+            if($('#txtNewName').val()=="")
+            {
+                console.log("Warning!!!! You should enter Details.");
+            }
+            else
+            {
+                var dt = new Date();
+                var CMD =dt.getDate()+"-"+(dt.getMonth()+1)+"-"+dt.getFullYear();
+                $.ajax({
+                    method:'POST',
+                    url:'http://localhost:54144/api/Category',
+                    datatype:'json',
+                    headers:
+                    {
+                        'Authorization':"Bearer "+localStorage.getItem("accessToken"),
+                    },
+                    data:{
+                        Name : $('#txtNewName').val(),
+                        IsActive : true,
+                        IsDeleted : false,
+                    },
+                    success:function(val)
+                    {
+                        $("#txtNewName").empty();
+                        alert("New Category Inserted  go to Show All");
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+            }
+        });
+        $('#btnPutCategory').click(function()
+        {
+            if($("#txtPutCategory").val()=="")
+            {
+                console.log("Warning!!!! You should enter Category ID.");
+            }
+            else if(isNaN($("#txtPutCategory").val()))
+            {
+                console.log("Warning!!!! You should enter NUMBER.");
+            }
+            else
+            {
+                $.ajax({
+                    method:'GET',
+                    url:'http://localhost:54144/api/Category/'+$("#txtPutCategory").val() ,
+                    contentType:'application/json',
+                    headers:{
+                        'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                    },
+                    success:function(val)
+                    {		
+                        $("#txtName").val(val.Name);
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+            }
+        });
+        $('#updateCategory').click(function()
+        {
+            $('#ShowCategorys').addClass('hidden');
+            $('#DeleteCategory').addClass('hidden');
+            $('#ShowCategory').addClass('hidden');
+            $('#CreateCategory').addClass('hidden');
+            $('#ShowCategories').hide('fade');
+            $('#DeleteCategory').hide('fade');
+            $('#ShowCategory').hide('fade');
+            $('#CreateCategory').hide('fade');
+            $('#UpdateCategory').removeClass('hidden');
+            $("#tblCategoryBody").empty();
+            $("#txtPutCategory").empty();
+            $("#txtName").empty();
+        });
+        $("#btnUpdate").click(function()
+        {
+            var dt = new Date();
+            var CMDu =dt.getDate()+"-"+(dt.getMonth()+1)+"-"+dt.getFullYear();
+            $.ajax(
+            {
+                type:'PUT',
+                url:'http://localhost:54144/api/Category/'+$("#txtPutCategory").val(),
+                datatype:'json',
+                headers:{
+                    'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                },
+                data:
+                {
+                    ID :$("#txtPutCategory").val(),
+                    Name : $('#txtName').val(),
+                    IsActive : true,
+                    IsDeleted : false,
+                },
+                success:function(val)
+                {
+                    alert("New Category Inserted  go to Show All");
+                    $("#txtName").empty();				
+                },
+                error:function(jqXHR)
+                { 
+                    if(jqXHR.state=="401")
+                    {
+                        $("#ErrorModal").model({backdrop: 'static'});
+                    }
+                    else
+                    {
+                        console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                    }
+                }  
+            });
+        });
+        $('#btnDelCategory').click(function()
+        {
+            if($("#txtDelCategory").val()=="")
+            {
+                console.log("Warning!!!! You should enter Category ID.");
+            }
+            else if(isNaN($("#txtDelCategory").val()))
+            {
+                console.log("Warning!!!! You should enter NUMBER.");
+            }
+            else
+            {
+                if(confirm('Are You going to DELETE this Category ?'))
+                {
+                $.ajax({
+                    method:'DELETE',
+                    url:'http://localhost:54144/api/Category/'+$("#txtDelCategory").val() ,
+                    contentType:'application/json',
+                    headers:{
+                        'Authorization':'Bearer '+localStorage.getItem('accessToken'),
+                    },
+                    success:function(val)
+                    {		
+                        console.log("Deleted");			
+                    },
+                    error:function(jqXHR)
+                    { 
+                        if(jqXHR.state=="401")
+                        {
+                            $("#ErrorModal").model({backdrop: 'static'});
+                        }
+                        else
+                        {
+                            console.log(jqXHR.statusText+" : " +jqXHR.responseText);
+                        }
+                    }  
+                });
+                }
+            }
+        });
+        $('#deleteCategory').click(function()
+        {
+            $('#ShowCategories').addClass('hidden');
+            $('#UpdateCategory').addClass('hidden');
+            $('#ShowCategory').addClass('hidden');
+            $('#CreateCategory').addClass('hidden');
+            $('#ShowCategories').hide('fade');
+            $('#UpdateCategory').hide('fade');
+            $('#ShowCategory').hide('fade');
+            $('#CreateCategory').hide('fade');
+            $('#DeleteCategory').removeClass('hidden');
+            $("#txtDelCategory").empty();
+        });
+    });
+</script>
+</body>
+</html>

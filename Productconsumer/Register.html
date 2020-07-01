@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>Register Page</title>
+        <meta charset="utf-8"/>
+        <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+    <body style="padding-top:20px">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="well">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="success">
+                            <td colspan="2">
+                                <label class="control-label col-sm-2">New User Registration</label>        
+                                <a class="btn btn-success pull-right" href="Login.html">Login</a> 
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label class="control-label col-sm-2" for="txtName"> User Name</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" id="txtName" placeholder="User Name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label col-sm-2" for="txtPassword"> Password</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="Password" id="txtPassword" placeholder="Password"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label col-sm-2" for="txtConfirmPassword">Confirm Password</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="Password" id="txtConfirmPassword" placeholder="Confirm Password"/>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td colspan="2">
+                                <input type="button" id="btnRegister" value="Register" class="btn btn-success form-control"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="SuccessModal" class="modal fade" style="display: none;" tabindex="-1">
+                    <div class="modal-dialog model-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Confirmation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Registration Success</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div id="divErrors" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">&times;</a>
+                    <div id="divErrorText">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function()
+            {
+                $('#linkClose').click(function()
+                {
+                    $('#divErrors').hide('fade');
+                });
+               $('#btnRegister').click(function()
+                {
+                    $.ajax({
+                        method:'POST',
+                        url:'http://localhost:54144/api/account' ,
+                        dataType:'json',
+                        data:{
+                            Name :$('#txtName').val(),
+                            Password:$('#txtPassword').val(),
+                            ConfirmPassword:$('#txtConfirmPassword').val(),
+                        },
+                        success:function()
+                        {
+                            $('#SuccessModal').modal({backdrop: 'static'});
+                        },
+                        error:function(jqXHR)
+                        { 
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divErrors').show('fade');
+                        }  
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
